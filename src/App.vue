@@ -1,8 +1,14 @@
 
+<script setup>
+  import Routeur from '@/router/router.vue'
+</script>
+
+
 <template>
-  Bonjour
+  <Routeur/>
 </template>
 
+
 <script>
-export default {}
+  export default {}
 </script>
