@@ -1,9 +1,11 @@
-
 <template>
     <div id="myComponent">
         <h2>{{ name }}</h2>
-        <img class ="img" v-bind:src=pictureUrl alt="Character Image">
-        <p>{{ appearance }}</p>
+        <img class ="img" v-bind:src="cleanImageURL(pictureUrl)" v-bind:alt="name">
+        <div class="card__text">
+            <p>{{ appearance }}</p>
+        </div>
+        
     </div>
 </template>
 
@@ -14,24 +16,79 @@
         name: {type: String, required: true},
         appearance: String,
         pictureUrl: {type: String, default:"https://s.com/default.png"}
-        }
+        },
+        methods: {
+        cleanImageURL(url) {
+            // Convertir l'URL en minuscules pour la comparaison insensible à la casse
+            const lowercaseURL = url.toLowerCase();
+
+            // Trouver l'index de la première occurrence de ".png", ".jpg" ou ".gif" (en minuscules)
+            let extensionIndex = lowercaseURL.indexOf(".png");
+            if (extensionIndex === -1) {
+                extensionIndex = lowercaseURL.indexOf(".jpg");
+                if (extensionIndex === -1) {
+                    extensionIndex = lowercaseURL.indexOf(".gif");
+                    if (extensionIndex === -1) {
+                        // Aucune occurrence de ".png", ".jpg" ou ".gif"
+                        return "";
+                    } else {
+                        // Occurrence de ".gif"
+                        extensionIndex += 4; // Déplacer l'index à la fin de l'extension
+                    }
+                } else {
+                // Occurrence de ".jpg"
+                extensionIndex += 4; // Déplacer l'index à la fin de l'extension
+                }
+            } else {
+                // Occurrence de ".png"
+                extensionIndex += 4; // Déplacer l'index à la fin de l'extension
+            }
+
+  // Retourner la partie de l'URL jusqu'à l'extension
+  return url.substring(0, extensionIndex);
+}
+
     }
+}
 </script>
 
 <style>
     #myComponent {
         display: flex;
-        flex-direction: column;
+        /* flex-basis:300px;*/
+        flex-direction: column; 
         place-items: center;
-        padding : 10%;
+        align-items: center;
+        /* margin:50px;
+        background-image: url('../img/card_bg.jpg');
+        border: solid 30px transparent;
+        border-image: url('@/img/border_img2.png') 30% round;
+        border-image-width: 40px;
+        background-clip: padding-box; */
     }
+    /*
+    #myComponent:hover{
+        box-shadow: 0px 2px 4px 4px rgba(253, 36, 188, 0.5) ;
+        cursor:pointer;
+    } */
 
     h2 {
-        font-size: 20px;
+        font-size: var(--h2-font-size);
         margin : 10px;
+        font-weight: var(--font-semi-bold);
+        line-height: 1.6;
     }
     p{
-        font-size : 16px;
-        margin: 20px;
+        font-size : var(--smaller-font_size);
+    }
+
+    .card__text{
+        border: solid 30px transparent;
+        border-image: url('@/img/border_text.jpg') 20% round;
+        border-image-width:30px;
+        background-color: var(--first-pink);
+        /* width:300px; */
+        color:#ffa7d8;
+        box-shadow: 0px 4px 4px 0px rgba(253, 36, 188, 0.5) ;
     }
 </style>

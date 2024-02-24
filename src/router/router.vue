@@ -2,6 +2,7 @@
  import { ref } from 'vue';
   import MyGallery from '@/components/gallery.vue'
   import MyHeader from '@/components/header.vue'
+  import Footer from '@/components/footer.vue'
 //   import getSanrioData  from '@/services/api/sanrioAPI.js'
 
 </script>
@@ -13,6 +14,10 @@
 
     <div class="gallery">
         <MyGallery/>
+    </div>
+
+    <div class="footer">
+        <Footer/>
     </div>
 </template>
 

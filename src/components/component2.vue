@@ -4,6 +4,7 @@
         <h2>{{ name }}</h2>
         <p>{{ description }}</p>
         <p>{{ date }}</p>
+        <p>{{ data }}</p>
     </div>
 </template>
 
@@ -12,10 +13,12 @@
         name: 'MyComponent2',
         props: {
             name: {type: String, required: true},
-            appearance: String,
-            date: {type: String}
+            description: String,
+            date: {type: String},
+            data:{type: String}
         }
     }
+   
 </script>
 
 <style>

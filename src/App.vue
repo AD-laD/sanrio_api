@@ -5,10 +5,15 @@
 
 
 <template>
-  <Routeur/>
+  <div id="app">
+    <Routeur/>
+    <router-view />
+  </div>
 </template>
 
 
 <script>
-  export default {}
+export default {
+  name: 'App',
+};
 </script>

@@ -1,6 +1,6 @@
-/* color palette from <https://github.com/vuejs/theme> */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 
 :root {
   --vt-c-white: #ffffff;
@@ -22,7 +22,8 @@
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
-  --body-font: 'Poppins', sans-serif ;
+  /* --body-font: 'Poppins', sans-serif ; */
+  --body-font: 'Pixelify Sans', sans-serif ;
 }
 
 /* semantic color variables for this project */
@@ -38,6 +39,24 @@
   --color-text: var(--vt-c-text-light-1);
 
   --section-gap: 160px;
+
+  --big-font-size: 2rem ;
+  --h1-font-size: 1.5rem ;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1.125rem;
+  --normal-font-size: .938rem;
+  --small-font-size: .813rem;
+  --smaller-font-size: .75rem;
+
+  /*Font weight*/
+  --font-medium: 500 ;
+  --font-semi-bold: 600  ;
+
+
+
+  --first-pink:#fde6ee;
+  --second-pink:rgba(253, 36, 188, 0.5);
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -66,10 +85,13 @@ body {
   min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
+  background-image: url('../img/sanrio-background2.jpg');
+  background-size: 10em auto;
+  background-repeat: 10;
   transition:
     color 0.5s,
     background-color 0.5s;
-  line-height: 1.6;
+  /* line-height: 1.6; */
   /* font-family:
     Inter,
     -apple-system,
@@ -83,9 +105,10 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif; */
-    font-family : --body-font;
+    font-family : var(--body-font);
   font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin:0;
 }
