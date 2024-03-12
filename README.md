@@ -1,5 +1,5 @@
-# Api-projet
-
+# Sanrio Api-projet : characters & marketplace
+<img src="https://github.com/AD-laD/sanrio_api/blob/master/src/gif/3dgifmaker95367.gif?raw=true" alt="alt text" width="400px">
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
