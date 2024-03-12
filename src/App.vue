@@ -6,7 +6,7 @@
 
 <template>
   <div id="app">
-    <Routeur/>
+    <!-- <Routeur/> -->
     <router-view />
   </div>
 </template>

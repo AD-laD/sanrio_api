@@ -8,6 +8,10 @@
             <img class ="footer__gif" src="../gif/pompompurin-sanrio.gif">
             <img class ="footer__gif" src="../gif/hurra.gif">
             <img class ="footer__gif" src="../gif/cine.gif">
+            <img class ="footer__gif" src="../gif/picmix.com_10392564.gif">
+            <img class ="footer__gif" src="../gif/picmix.com_1926379.gif">
+            <img class ="footer__gif" src="../gif/picmix.com_2134606.gif">
+            <img class ="footer__gif" src="../gif/picmix.com_2532746.gif">
         </div> 
     </footer>
 </template>
@@ -28,8 +32,6 @@ footer{
     display: flex;
 
 } 
-
-
 
 .footer__gif{
     height: 100px;

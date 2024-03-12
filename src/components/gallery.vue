@@ -3,23 +3,26 @@
   import getSanrioData  from '@/services/api/sanrioAPI.js'
   import getSanrioDataLittleApi from '@/services/api/sanrioAPI2.js'
   import MyComponent2 from '@/components/component2.vue'
+  import FilterOptions from '@/components/filterOptions.vue'
+
 </script>
 
 <template>
-    <div class="select__container">
-        <select class="select-gallery" v-model="triPar" @change="trierPersonnages">
-            <option value="default">Default</option>
-            <option value="nom">Name</option>
-            <option value="date">Date</option>
-        </select>
-    </div>
-   
+      <FilterOptions :triPar="triPar" :search="search" :characSortType="characSortType" :characSpecie.sync="characSpecie" @update:characSortType="updateCharacSortType" @update:search="updateSearch" @clean-search="cleanSearch"  @update:characSpecie="updateCharacSpecie" :species="species"/>
     <div class="component-gallery">
-        <router-link class="mycomponent" v-for="character in characters" :key="character._id" :to="{ name: 'CharacterPage', params: { id: character._id } }">
+        <div v-if="!isDataLoaded" class="loading-gif-container">
+            Fetching API...
+            <img src="../gif/picmix.com_25159962.gif" alt="Loading GIF" height="150px" />
+        </div>
+        <!-- <router-link class="mycomponent" v-for="character in characters" :key="character._id" :to="{ name: 'CharacterPage', params: { id: character._id } }">
             <MyComponent :name="character.name" :appearance="character.appearance" :pictureUrl="character.img" />
-        </router-link>
+        </router-link> -->
+            <router-link class="mycomponent" v-for="character in charactersOrganizedData" :key="character._id" :to="{ name: 'CharacterPage', params: { id: character._id } }">
+                <MyComponent :name="character.name" :appearance="character.appearance" :pictureUrl="character.img" />
+            </router-link>
+
         <!-- <MyComponent v-for="character in characters" :key="character._id" :name="character.name" :appearance="character.appearance" :pictureUrl="character.img" /> -->
-        <MyComponent2 :data="newCharacters" />
+        <!-- <MyComponent2 :data="newCharacters" /> -->
         <!-- <MyComponent2 v-for="character in newCharacters" :key="character.name" :name="character.name"/>-->
         <!-- <MyComponent2 v-for="character in newCharacters" :key="character.name" :name="character.name" :description="character.description" :date="character.debut_year"/> -->
         <!-- <MyComponent2 v-for="character in newCharacters" :key="character.name" :name="character.name" :description="character.description" :date="character.debut_year" /> -->
@@ -31,24 +34,70 @@
         name: 'MyGallery',
         components: {
             MyComponent,
-            MyComponent2
+            MyComponent2,
+            FilterOptions,
         },
         data() {
             return {
                 characters: [],
                 newCharacters : [],
                 triPar: 'nom',
+                isDataLoaded: false, 
+                search: "",
+                characSpecie: "all",
+                characSortType: "AZName",
+                species: [],
             };
         },
         mounted() {
             this.fetchSanrioData();
             this.fetchSanrioLittleData();
         },
+        computed: {
+            charactersOrganizedData: function() {
+                const field = ["AZName", "ZAName"].includes(this.characSortType) ? "name" : ["12Date"].includes(this.characSortType) ? "debut_year" : "_id";
+                const reversed = ["ZAName"].includes(this.characSortType);
+                const searchTerm = this.search.toLowerCase();
+                const specieFilter = this.characSpecie.toLowerCase();  
+                const comparator = (a, b) => {
+                    if (field === "name") {
+                        return a[field].localeCompare(b[field]);
+                    } else if (field === "debut_year") {
+                        return a[field] - b[field];
+                    } else {
+                        return a[field].localeCompare(b[field]);
+                    }
+                };
+
+                let data = [...this.characters];
+                data = data.filter(character => character.name.toLowerCase().includes(searchTerm));
+                data.sort(comparator);
+                data.filter(character => character.name.toLowerCase().includes(searchTerm));
+                if (specieFilter && specieFilter!== "all") {
+                    data =data.filter(character => character.specie.toLowerCase() === specieFilter);
+                }
+
+
+                if (reversed) data = data.reverse();
+
+                return data;
+            },
+        },
         methods: {
             async fetchSanrioData() {
                 try {
                     const sanrioData = await getSanrioData();
+                    console.log()
                     this.characters = sanrioData;
+                    this.isDataLoaded = true;
+                    const uniqueSpecies = new Set();
+                    this.characters.forEach(character => {
+                    if (character.specie) {
+                        uniqueSpecies.add(character.specie);
+                    }
+                    });
+                    this.species = Array.from(uniqueSpecies);
+                    console.log('Unique Species:', Array.from(uniqueSpecies));
                 } catch (error) {
                     console.error(error);
                 }
@@ -60,21 +109,19 @@
                     console.error(error);
                 }
             },
-            trierPersonnages() {
-                this.characters.sort((a, b) => {
-                    if (this.triPar === 'nom') {
-                        return a.name.localeCompare(b.name);
-                    }
-                    else if(this.triPar === 'date'){
-                        const yearA = a.debut_year; 
-                        const yearB = b.debut_year;
-                        return yearA - yearB;
-                    } else if(this.triPar === 'default'){
-                        return a._id.localeCompare(b._id);
-                    }
-                    return 0;
-                });
-            }
+            updateCharacSortType(newSortType) {
+                this.characSortType = newSortType;
+            },
+            updateSearch(newSearch) {
+                this.search = newSearch;
+            },
+            cleanSearch() {
+                this.search = '';
+                this.characSpecie='all';
+            },
+            updateCharacSpecie(newSpecie) {
+                this.characSpecie = newSpecie;
+            },
         }
     }
 </script>
@@ -98,51 +145,38 @@
         cursor:pointer;
     }
 .component-gallery{
-    /* display: flex;
-    place-items: center; */
+    margin-left: 150px;
+    margin-right:150px;
+    min-height: 450px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr; /*3 colonnes*/
-    padding: 0 3rem;
-    max-width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    background-image: url('../img/sanrio-background2.jpg');
+    background-size: 10em auto;
+    background-repeat: 10;
+    border: solid 30px transparent;
+    border-image: url('@/img/border.jpg') 5% round;
+    border-image-width:20px;
+    box-shadow: 0px 4px 4px 0px rgba(253, 36, 188, 0.5) ;
 }
 
-.select__container{
+.loading-gif-container {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+    color:var(--second-pink);
 }
 
-.select-gallery {
-  width: 200px; 
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid var(--second-pink);
-  background-color: var(--first-pink);
-  cursor: pointer;
-  font-family: var(--body-font);
-  color:var(--second-pink);
+.loading-gif-container img {
+    z-index: 1;
 }
 
-.select-gallery option {
-  font-size: 14px;
-  background-color: #fff;
-  color: var(--color-text);
-  font-family: var(--body-font);
-}
-
-
-.select-gallery:hover {
-  border-color: var(--color-text);
-}
-
-.select-gallery:focus {
-  outline: none;
-  box-shadow: 0 0 5px var(--second-pink);
-}
-
-.select-gallery option[value="default"] {
-  font-style: italic;
-  color: #999;
+@media screen and (max-width: 680px) {
+    .component-gallery{
+        margin-left: 0;
+        margin-right:0;
+    }
 }
 
 </style>

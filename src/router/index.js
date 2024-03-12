@@ -1,13 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import CharacterPage from '@/views/CharacterPage.vue';
+import Router from './router.vue';
+import PageRouter from './pagerouter.vue';
 
 const routes = [
   {
     path: '/character/:id',
     name: 'CharacterPage',
-    component: CharacterPage,
+    component: PageRouter,
     props: true,
   },
+  {
+    path: '/',
+    name: 'Homepage',
+    component: Router,
+    props: true,
+  }
 ];
 
 const router = createRouter({

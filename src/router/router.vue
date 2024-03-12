@@ -11,10 +11,12 @@
     <div>
         <MyHeader/>
     </div>
-
-    <div class="gallery">
-        <MyGallery/>
+    <div class="container">
+        <div class="gallery">
+            <MyGallery/>
+        </div>
     </div>
+    
 
     <div class="footer">
         <Footer/>
@@ -24,6 +26,14 @@
 <script>
 
     export default {
-        name: 'Routeur',
+        name: 'Router',
     }
 </script>
+
+<style>
+    .container{
+        width:100%;
+        background-color: var(--first-pink);
+        background-image: url('../img/fond sanrio2.gif');
+    }
+</style>
