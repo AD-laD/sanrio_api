@@ -3,7 +3,10 @@
     import  cleanImageURL  from '@/services/tools/cleanImageURL.js';
     import getGoogleProducts from '@/services/api/googleShopping';
     import Product from '@/components/product.vue';
+    import getLoveCalculator from '@/services/api/loveCalculator.js';
+    import loveMatch from '@/components/love.vue';
 </script>
+
 <template>
     <div id="CharacterPage" class="CharacterPage">
         <div class="character__container">
@@ -14,10 +17,18 @@
             <div class="titles">
                 <h1>{{character.name}}</h1>
                 <h2>{{ character.appearance }}</h2>
+                <loveMatch :percentage="loveResult.percentage" :fname="loveResult.fname" :sname="loveResult.sname" :result="loveResult.result" @nameinput="getLoveData"/>
+                <!-- <div v-if="LoveData" >
+                    <loveMatch :percentage="loveResult.percentage" :fname="loveResult.fname" :sname="loveResult.sname" :result="loveResult.result" @nameinput="getLoveData"/>
+                </div> -->
+
+
             </div>
             <div v-if="isDataLoaded">
                  <img class ="img" v-bind:src="cleanImageURL(character.img)" alt="image">
             </div>
+
+
 
             <div class="character-datas">
                 <p class = "year character__about">Creation year :</p><p class= "character__data"> {{character.debut_year}}</p>
@@ -45,9 +56,6 @@
             </div>
             
         </div>
-
-
-
        
     </div>
     <div>
@@ -65,6 +73,7 @@
         name: 'CharacterPage',
         components: {
             Product,
+            loveMatch,
         },
         data() {
             return {
@@ -72,16 +81,29 @@
                 products: {},
                 visibleProducts: [],
                 isShoppingDataLoaded : false,
-                productsPerPage: 5,
+                isDataMounted : false,
+                LoveData:false,
+                productsPerPage: 4,
                 currentPage: 1,
                 productsArray: [],
                 productsArrayDefault: [],
+                characterName:"",
+                loveResult: {},
             };
         },
         mounted() {
             const characterId = this.$route.params.id;
             this.getCharacterDataFromId(characterId);
             this.getProductsData();
+            // this.$on('name-input', this.handleNameInput);
+            // this.$root.$on('name-input', this.handleNameInput);
+            this.isDataMounted = true;
+        },
+        watch: {
+        character: {
+            handler: 'getProductsData',
+            deep: true,
+        },
         },
         computed:{
             paginatedProducts() {
@@ -92,7 +114,7 @@
             },
             shouldShowLoadMoreButton() {
                 console.log(this.visibleProducts.length);
-                return this.visibleProducts.length < Object.keys(this.products).length-5;
+                return this.visibleProducts.length < Object.keys(this.products).length-this.productsPerPage;
                 
             },
         },
@@ -101,41 +123,63 @@
                 try {
                     const sanrioData = await getSanrioDataById(characterId);
                     this.character = sanrioData;
+                    console.log(this.character.name);
+                    this.characterName = this.character.name;
                     this.isDataLoaded = true;
                     
                 } catch (error) {
                     console.error(error);
                 }
             }, 
-            async getProductsData(){
-                try{
-                    const response = await getGoogleProducts();
-                if (response && response.results) {
-                    this.products = response.results;
-                    this.isShoppingDataLoaded = true;
-                    this.productsArrayDefault = [...this.products];
-                    this.visibleProducts = this.productsArrayDefault.slice(0, 5);
-                    console.log(this.visibleProducts);
-                } else {
-                    console.error("Invalid response format from the API");
+            async getProductsData(){ //à renommer et séparer en 2 maybe
+                if(this.isDataLoaded){
+                    const characname = this.character.name;
+                    try{
+                    const response = await getGoogleProducts(characname);
+                    if (response && response.results) {
+                        this.products = response.results;
+                        this.isShoppingDataLoaded = true;
+                        this.productsArrayDefault = [...this.products];
+                        this.visibleProducts = this.productsArrayDefault.slice(0, this.productsPerPage);
+                        // console.log(this.visibleProducts);
+                    } else {
+                        console.error("Invalid response format from the API");
+                    }
+                    } catch (error) {
+                        console.error(error);
+                    }
+                    // this.getLoveData();
                 }
-                } catch (error) {
-                    console.error(error);
-                }
+                
             },
             loadMoreProducts() {
                 this.currentPage++;
                 this.visibleProducts = [...this.visibleProducts, ...this.paginatedProducts];
             },
-            
+            async getLoveData(value){
+                console.log(value);
+                if(this.isDataLoaded){
+                    console.log("on entre ici");
+                    const characname = this.character.name;
+
+                    try {
+                        this.loveResult = await getLoveCalculator(characname, value);
+                        this.LoveData = true;
+                        console.log(this.loveResult);
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+            },
+
         }
     }
 </script>
 <!-- piste : changer le picture url uniquement après que les datas soient loaded-->
 <style>
     .CharacterPage{
-        padding-right:200px;
-        padding-left: 200px;
+        padding-right:15%;
+        padding-left: 15%;
     }
 
     .character__container{
@@ -162,7 +206,7 @@
 
     .character__container img {
         grid-area: image;
-        width:250px;
+        width:100%;
         border: solid 30px transparent;
         border-image: url('@/img/sanrio_border3.jpg') 10% round;
         border-image-width:30px;
@@ -194,14 +238,15 @@
         display: grid;
         /* grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); */
         grid-area: datas;
-        grid-template-columns: repeat(4, 1fr);
+        /* grid-template-columns: repeat(4,minmax(1.3fr, 2fr)); */
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
         border: solid 30px transparent;
         border-image: url('@/img/border_text.jpg') 20% round;
         border-image-width:30px;
         background-color: var(--first-pink);
-        background-image: url('@/img/charactextebg.jpg');
+        /* background-image: url('@/img/charactextebg.jpg');
         background-size: 5em auto;
-        background-repeat: 10;
+        background-repeat: 10; */
         /* width:300px; */
         color:#ffa7d8;
         box-shadow: 0px 4px 4px 0px rgba(253, 36, 188, 0.5) ;
@@ -225,6 +270,7 @@
         align-items: center;
         display: flex;
         justify-content:space-around;
+        margin:0px;
     }
 
     .product-container{
@@ -239,12 +285,10 @@
     }
 
     .product-gallery{
-        
         display: grid;
         gap:10px;
-        grid-template-columns:  minmax(100px, max-content) repeat(auto-fill, 200px) 20%;
-
-      
+        /* grid-template-columns:  minmax(120px, max-content) repeat(auto-fill, 200px) 20%; */
+        grid-template-columns: repeat(4, minmax(100px, 1fr));
     }
 
     .button_div{
@@ -253,6 +297,39 @@
         justify-content: center;
         margin-top: 10px;
     }
+
+@media only screen and (max-width: 767px) {
+    .CharacterPage{
+        padding-right:20px;
+        padding-left: 20px;
+    }
+    .character-datas{
+        box-shadow: 0px 2px 2px 0px rgba(253, 36, 188, 0.5);
+        /* grid-template-columns: repeat(2, minmax(100px, 1fr)); */
+    }
+    .character__data, .character__about{
+        font-size: 12px;
+        /* margin:0px; */
+    }
+    .character__container img {
+        border-width: 10px;
+        border-image-width: 10px;
+    }
+
+    .character__container {
+        grid-template-areas:
+            "title title"
+            "image appearance"
+            "datas datas";
+        gap: 5px;
+    }
+
+    .product-gallery{
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+    }
+
+}
+
 
 
 </style>

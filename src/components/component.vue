@@ -53,7 +53,7 @@ import cleanImageURL from '@/services/tools/cleanImageURL.js'
         line-height: 1.6;
     }
     p{
-        font-size : var(--smaller-font_size);
+        font-size : var(--smaller-font-size);
     }
 
     .card__text{
@@ -65,4 +65,6 @@ import cleanImageURL from '@/services/tools/cleanImageURL.js'
         color:#ffa7d8;
         box-shadow: 0px 4px 4px 0px rgba(253, 36, 188, 0.5) ;
     }
+    
+
 </style>

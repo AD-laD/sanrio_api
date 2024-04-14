@@ -1,31 +1,50 @@
 
 
 <template>
-    <!-- <div class="select__container">
-        <select class="select-gallery" v-model="triPar" @change="trierPersonnages">
-            <option value="default">Default</option>
-            <option value="nom">Name</option>
-            <option value="date">Date</option>
-        </select>
-    </div> -->
     <div class="gallery-options select__container">
         <input type="text" name="search" placeholder="Search..." @input="onSearchInput">
-      
-        <label for="charac-sort">Order by : </label>
-        <select class ="select-gallery" :value="characSortType" id="charac-sort" @change="onCharacSortChange">
-            <option value="AZName">A-Z</option>
-            <option value="ZAName">Z-A</option>
-            <option value="12Date">Date</option>
-            <!-- <option value="12Birthday">Birthday</option> -->
-        </select>
+        
+        <div class="label__and__input">
+            <label for="charac-sort">Order by : </label>
+            <select class ="select-gallery" :value="characSortType" id="charac-sort" @change="onCharacSortChange">
+                <option value="AZName">A-Z</option>
+                <option value="ZAName">Z-A</option>
+                <option value="12Date">Date</option>
+                <!-- <option value="12Birthday">Birthday</option> -->
+            </select>
+        </div>
+       
+        
+        <div class="label__and__input">
         <label for="charac-specie">Species : </label>
         <select class ="select-gallery" :value="characSpecie" id="charac-specie" @change="onCharacSpecieChange">
             <option value="all">All</option>
             <option v-for="specie in species" :key="specie" :value="specie">{{ specie }}</option>
         </select>
+        </div>
         <button v-if="search || (characSpecie !== 'all')" @click="cleanSearch">Clean search</button>
 
+
+
     </div>
+    <div class="slider__container">
+            <input type="range" class="slider" id="myRange" list="values" step="8" :value="characBirthday" @change="onCharacBirthdayChange">
+        <datalist id="values">
+            <option value="0" label="all"></option>
+            <option value="8" label="jan"></option>
+            <option value="16" label="feb"></option>
+            <option value="24" label="mar"></option>
+            <option value="32" label="apr"></option>
+            <option value="40" label="may"></option>
+            <option value="48" label="jun"></option>
+            <option value="56" label="jul"></option>
+            <option value="64" label="aug"></option>
+            <option value="72" label="sep"></option>
+            <option value="80" label="oct"></option>
+            <option value="88" label="nov"></option>
+            <option value="96" label="dec"></option>
+        </datalist>
+        </div>
 </template>
 
 <script>
@@ -37,6 +56,7 @@ export default {
         characSortType: String,
         characSpecie: String,
         species: Array,
+        characBirthday: String,
     },
     methods: {
         onSearchInput(event) {
@@ -52,6 +72,11 @@ export default {
         onCharacSpecieChange(event) {
             this.$emit('update:characSpecie', event.target.value);
         },
+        onCharacBirthdayChange(event){
+            this.$emit('update:characBirthday', event.target.value);
+            console.log(event.target.value);
+            // console.log(this.characBirthday);
+        }
     },
 };
 </script>
@@ -64,8 +89,19 @@ export default {
     align-items: center;
     justify-content: center;
    gap:10px;
+   padding-top: 10px;
+    padding-bottom: 10px;
 }
-
+.slider__container{
+    /* max-width: 500px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap:10px;
+    padding-left: 150px;
+    padding-right:150px;
+}
 .select-gallery,
 input
 {
@@ -95,6 +131,7 @@ button{
     padding: 0.5rem 2rem;
     font-family: var(--body-font);
     color:var(--second-pink);
+    align-items: center;
 }
 
 button:hover{
@@ -123,4 +160,86 @@ button:hover{
   font-style: italic;
   color: #999;
 }
+
+
+.slider {
+  /* -webkit-appearance: none; 
+  appearance: none; */
+  width: 100%; 
+  height: 25px; 
+  background: var(--first-pink);
+  outline: none; 
+  opacity: 0.7; 
+  -webkit-transition: .2s; 
+  transition: opacity .2s;
+  padding:none;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+.slider::-moz-range-thumb {
+  width: 40px;
+  height: 40px; 
+  border: none;
+  /* background: var(--second-pink);  */
+  background: url('../img/cake.png');
+  background-image: url('../img/cake.png');
+  background-size: contain;
+  cursor: pointer;
+  z-index: 3;
+}
+
+datalist {
+  display: flex;
+  /* flex-direction: column; */
+  flex-direction: row;
+  justify-content: space-around;
+  /* writing-mode: vertical-lr; */
+  writing-mode: horizontal-tb;
+  width: 100%;
+  margin-right: 30px; 
+}
+
+@media only screen and (max-width: 767px) {
+    .select__container{
+        display: grid;
+        gap:5px;
+        justify-content: center;
+    }
+    .select-gallery,
+    label
+    {
+        font-size:11px;
+        max-width: 100px;
+    }
+    input{
+        max-width:180px;
+        font-size: 14px;
+    }
+    input[type="range"] {
+        max-width: 100%;
+    }
+
+    .label__and__input{
+        display: flex;
+        gap : 0px;
+    }
+    .slider__container{
+        padding-left:5px;
+        padding-right: 5px;
+        gap:5px;
+    }
+    datalist {
+        flex-direction: column;
+        justify-content:space-evenly;
+        writing-mode: vertical-lr;
+        margin:0;
+        width:90%;
+        margin-right:5px;
+        font-size: 10px;
+    }
+}
+
+
 </style>

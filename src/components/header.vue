@@ -35,12 +35,11 @@ header{
     margin-right: auto;
     padding:2rem;
 }
-.header__img{
-    /* width:200px; */
-    height:100px;
-    /* position:absolute;
-    left:400px; */
-}
+/* .header__img{
+    /* width:200px; 
+ position:absolute;
+    left:400px; 
+} */
 
 .logo__img{
    max-height:700px;
@@ -68,6 +67,27 @@ header{
     position:absolute;
     top:30px;
     left:80%;
+}
+
+
+@media only screen and (max-width: 767px) {
+    header{
+        height:100px;
+    }
+    .logo__img{
+        max-width: 100%; /* La largeur maximale de l'image est fixée à 100% de la largeur de son conteneur */
+        display: block; /* Assurez-vous que l'image est affichée en tant que bloc pour appliquer les marges automatiques */
+        margin-left: auto; /* Marge automatique à gauche */
+        margin-right: auto; /* Marge automatique à droite */
+    }
+
+    .logo__sparkles__1,
+    .logo__sparkles__2,
+    .logo__sparkles__3,
+    .logo__sparkles__4 {
+        height:50px;
+    }
+
 }
 
 

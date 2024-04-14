@@ -4,7 +4,10 @@
 
 <template>
     <div id="product">
-        <h3>{{ title}}</h3>
+        <div class="image__container">
+            <h3>{{ title}}</h3>
+        </div>
+       
         <img class ="img" v-bind:src="image" v-bind:alt="title">
         <div class="card__text">
             <p>{{ price }}</p>
@@ -82,5 +85,10 @@
         width:100%;
         object-fit: cover;
         height:150px;
+    }
+
+    .url{
+        width:100%;
+        text-align: center;
     }
 </style>

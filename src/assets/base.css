@@ -112,3 +112,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
   margin:0;
 }
+
+
+@media only screen and (max-width: 767px) {
+  /* :root{
+    --big-font-size: 1rem ;
+    --h1-font-size: 1rem ;
+    --h2-font-size: 9rem;
+    --h3-font-size: 1.125rem;
+    --normal-font-size: .938rem;
+    --small-font-size: .3rem;
+    --smaller-font-size: .3rem;
+  } */
+
+}
