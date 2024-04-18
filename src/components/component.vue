@@ -7,7 +7,7 @@ import cleanImageURL from '@/services/tools/cleanImageURL.js'
         <h2>{{ name }}</h2>
         <img class ="img" v-bind:src="cleanImageURL(pictureUrl)" v-bind:alt="name">
         <div class="card__text">
-            <p>{{ appearance }}</p>
+            <p class="card__p">{{ appearance }}</p>
         </div>
         
     </div>
@@ -53,18 +53,40 @@ import cleanImageURL from '@/services/tools/cleanImageURL.js'
         line-height: 1.6;
     }
     p{
-        font-size : var(--smaller-font-size);
+        font-size : var( --normal-font-size);
+        /* font-size: 11px; */
     }
 
     .card__text{
-        border: solid 30px transparent;
+        border : solid transparent 30px;
         border-image: url('@/img/border_text.jpg') 20% round;
         border-image-width:30px;
         background-color: var(--first-pink);
-        /* width:300px; */
         color:#ffa7d8;
         box-shadow: 0px 4px 4px 0px rgba(253, 36, 188, 0.5) ;
+        height:120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* padding:0; */
+        /* margin:0; */
+        max-width: 400px;
+        margin-left:20px;
+
+        margin-right: 20px;
+        width:100%;
+        box-sizing:content-box; /* La bordure est incluse dans la taille totale de la div */
     }
+
+    .card__p{
+        margin-right: 20px;
+        margin-left:20px;
+        /* margin:20px; */
+        /* max-height: min-content;
+
+        word-break: break-all; */
+    }
+    
     
 
 </style>

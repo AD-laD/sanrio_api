@@ -9,7 +9,7 @@
         </div>
        
         <img class ="img" v-bind:src="image" v-bind:alt="title">
-        <div class="card__text">
+        <div class="card__text__alt">
             <p>{{ price }}</p>
             <a :href="url" target="_blank" class="mon-bouton">
                 <button class="url">View product</button>
@@ -59,7 +59,7 @@
     
     #product:hover{
         box-shadow: 0px 2px 4px 4px rgba(253, 36, 188, 0.5) ;
-        cursor:pointer;
+        
     }
 
     h3 {
@@ -70,15 +70,19 @@
         height:70px;
     }
 
-    .card__text{
+    .card__text__alt{
         border: solid 10px transparent;
         border-image: url('@/img/border.jpg') 5% round;
         border-image-width:10px;
-        background-color: var(--first-pink);
+        background-color: var(--second-pink);
         /* width:300px; */
-        color:#ffa7d8;
+        color:var(--first-pink);
         box-shadow: 0px 4px 4px 0px rgba(253, 36, 188, 0.5) ;
         width:100%;
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     #product img{
@@ -90,5 +94,9 @@
     .url{
         width:100%;
         text-align: center;
+    }
+
+    .mon-bouton{
+        width:100%;
     }
 </style>

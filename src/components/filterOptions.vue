@@ -137,7 +137,8 @@ button{
 button:hover{
     background-color: var(--second-pink);
     color:var(--first-pink);
-    box-shadow: -2px 0 4px -1px rgba(0, 0, 0, 0.2), inset -2px -2px 1px 0 #c76993
+    box-shadow: -2px 0 4px -1px rgba(0, 0, 0, 0.2), inset -2px -2px 1px 0 #c76993;
+    cursor:pointer;
 }
 .select-gallery option {
   font-size: 14px;
@@ -163,8 +164,8 @@ button:hover{
 
 
 .slider {
-  /* -webkit-appearance: none; 
-  appearance: none; */
+  -webkit-appearance: none; 
+  appearance: none;
   width: 100%; 
   height: 25px; 
   background: var(--first-pink);
@@ -178,16 +179,66 @@ button:hover{
 .slider:hover {
   opacity: 1;
 }
-.slider::-moz-range-thumb {
+
+.slider::-moz-range-thumb
+{
+-webkit-appearance: none; 
+  appearance: none;
   width: 40px;
   height: 40px; 
   border: none;
-  /* background: var(--second-pink);  */
   background: url('../img/cake.png');
   background-image: url('../img/cake.png');
   background-size: contain;
   cursor: pointer;
   z-index: 3;
+}
+
+.slider::-webkit-slider-thumb
+{
+-webkit-appearance: none; 
+  appearance: none;
+    width: 40px;
+  height: 40px; 
+  border: none;
+  background: url('../img/cake.png');
+  background-image: url('../img/cake.png');
+  background-size: contain;
+  cursor: pointer;
+  z-index: 3;
+
+}
+
+.slider::-moz-range-thumb:hover{
+    animation: rotateAnimation 2s infinite linear;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    -webkit-animation: rotateAnimation 2s infinite linear;
+}
+
+
+@keyframes rotateAnimation {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    25% {
+        -webkit-transform: rotate(-20deg);
+        transform: rotate(-20deg);
+    }
+    50% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    75% {
+        -webkit-transform: rotate(20deg);
+        transform: rotate(20deg);
+    }
+    100% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
 }
 
 datalist {

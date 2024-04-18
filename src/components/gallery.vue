@@ -1,8 +1,8 @@
 <script setup>
   import MyComponent from '@/components/component.vue'
   import getSanrioData  from '@/services/api/sanrioAPI.js'
-  import getSanrioDataLittleApi from '@/services/api/sanrioAPI2.js'
-  import MyComponent2 from '@/components/component2.vue'
+//   import getSanrioDataLittleApi from '@/services/api/sanrioAPI2.js'
+//   import MyComponent2 from '@/components/component2.vue'
   import FilterOptions from '@/components/filterOptions.vue'
   import cutMonth from '@/services/tools/cutMonth.js'
   import sliderBirthdayValues from '@/services/tools/sliderBirthdayValues.js'
@@ -27,7 +27,6 @@
         name: 'MyGallery',
         components: {
             MyComponent,
-            MyComponent2,
             FilterOptions,
         },
         data() {
@@ -45,7 +44,7 @@
         },
         mounted() {
             this.fetchSanrioData();
-            this.fetchSanrioLittleData();
+            // this.fetchSanrioLittleData();
         },
         computed: {
             charactersOrganizedData: function() {
@@ -100,13 +99,13 @@
                     console.error(error);
                 }
             },
-            async fetchSanrioLittleData(){
-                try{
-                    this.newCharacters = await getSanrioDataLittleApi();
-                }catch(error){
-                    console.error(error);
-                }
-            },
+            // async fetchSanrioLittleData(){
+            //     try{
+            //         this.newCharacters = await getSanrioDataLittleApi();
+            //     }catch(error){
+            //         console.error(error);
+            //     }
+            // },
             updateCharacSortType(newSortType) {
                 this.characSortType = newSortType;
             },
@@ -129,26 +128,27 @@
 
 <style>
     .mycomponent {
-        display: flex;
+        /* display: flex;
         flex-basis:300px;
         flex-direction: column;
         place-items: center;
-        margin:50px;
-        /* height:200px; */
+        margin:50px; */
         background-image: url('../img/card_bg.jpg');
         border: solid 30px transparent;
         border-image: url('@/img/border_img2.png') 30% round;
         border-image-width: 40px;
         background-clip: padding-box;
-        max-width: 400px;
+        margin:30px;
+        /* height:400px; */ 
     }
     .mycomponent:hover{
         box-shadow: 0px 2px 4px 4px rgba(253, 36, 188, 0.5) ;
         cursor:pointer;
     }
     .img{
-        width:80%;
-        
+        max-width:100%;
+        height:200px;
+        object-fit: cover;
     }
 .component-gallery{
     margin-left: 150px;
@@ -156,6 +156,9 @@
     min-height: 450px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    /* grid-template-columns: repeat(3, minmax(350px, 1fr)); */
+
+
     background-image: url('../img/sanrio-background2.jpg');
     background-size: 10em auto;
     background-repeat: 10;
@@ -178,11 +181,24 @@
     z-index: 1;
 }
 
+@media screen and (max-width: 1100px) {
+    .mycomponent {
+        margin: 20px;
+    }
+    .component-gallery{
+        margin-left: 50px;
+        margin-right:50px;
+        grid-template-columns: repeat(2, minmax(200px, 1fr));
+    }
+}
+
 @media screen and (max-width: 680px) {
     .component-gallery{
-        margin-left: 0;
-        margin-right:0;
+        /* margin-left: 0;
+        margin-right:0; */
         grid-template-columns: repeat(2, minmax(100px, 1fr));
+        margin-left: 20px;
+        margin-right:20px;
     }
     .mycomponent{
         margin:6%;
@@ -192,14 +208,14 @@
         border-image-width: 30px;
         background-clip:padding-box;
         background-size: 15em auto;
-        max-height: 180px;
+        height: 190px;
     }
-    h2{
+    /* h2{
         line-height: normal;
         font-size: 16px;
         max-width: 100px;
         text-align: center;
-    }
+    } */
     p{
         font-size: 14px;
     }

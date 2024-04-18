@@ -1,7 +1,7 @@
 <template>
     <footer>
         <div class="footer__container">
-            @Sanrio API 2024
+            @Sanrio API project 2024
             made by wapsad
         <div class="gif__container">
             <div class="gif__moving">
@@ -33,7 +33,7 @@
 <style>
 footer{
     background-color: var(--first-pink);
-    color:#FFF;
+    color:var(--second-pink);
     margin: 0;
     padding:0;
     width:100%;

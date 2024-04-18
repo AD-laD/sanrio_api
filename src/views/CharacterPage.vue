@@ -13,24 +13,28 @@
                 <div v-if="!isDataLoaded" class="loading-gif-container">
                 Fetching API...
                 <img src="../gif/picmix.com_25159962.gif" alt="Loading GIF" height="150px" />
+                </div>
+            <div class="titles ">
+                <div class="name character__container__child">
+                    <h1>{{character.name}}</h1>
+                    <h2>{{ character.appearance }}</h2>
+                </div>
+                <div class="characimg character__container__child">
+                    <div v-if="isDataLoaded">
+                 <img class ="img" v-bind:src="cleanImageURL(character.img)" alt="image">
             </div>
-            <div class="titles">
-                <h1>{{character.name}}</h1>
-                <h2>{{ character.appearance }}</h2>
-                <loveMatch :percentage="loveResult.percentage" :fname="loveResult.fname" :sname="loveResult.sname" :result="loveResult.result" @nameinput="getLoveData"/>
+                </div>
                 <!-- <div v-if="LoveData" >
                     <loveMatch :percentage="loveResult.percentage" :fname="loveResult.fname" :sname="loveResult.sname" :result="loveResult.result" @nameinput="getLoveData"/>
                 </div> -->
-
-
             </div>
-            <div v-if="isDataLoaded">
-                 <img class ="img" v-bind:src="cleanImageURL(character.img)" alt="image">
-            </div>
+           
 
-
-
-            <div class="character-datas">
+            <div class="lovedata ">
+                <div class="love character__container__child">
+                    <loveMatch :percentage="loveResult.percentage" :fname="loveResult.fname" :sname="loveResult.sname" :result="loveResult.result" @nameinput="getLoveData"/>
+                </div>
+                <div class="character-datas character__container__child">
                 <p class = "year character__about">Creation year :</p><p class= "character__data"> {{character.debut_year}}</p>
                 <p class = "character__about">Created by :</p><p class= "character__data"> {{character.creator}}</p>
                 <p class = "character__about">Universe :</p><p class= "character__data"> {{character.universe}}</p>
@@ -39,6 +43,8 @@
                 <p class = "character__about">Specie :</p><p class= "character__data"> {{character.specie}}</p>
                 <p class = "character__about">Birthday :</p><p class= "character__data"> {{character.birthday}}</p>
             </div>
+            </div>
+          
             
         </div>
 
@@ -192,17 +198,27 @@
         box-shadow: 5px 5px 4px 5px rgba(253, 36, 188, 0.5) ;
         background-image: url('@/img/hellokitty bg.png');
         display: grid;
-        grid-template-areas:
-            "title image"
-            "appearance image"
-            "datas datas";
+        display: flex;
+        flex-direction: column;
         gap: 10px;
+        width:100%;
     }
 
-    .character__container .titles {
-        grid-area: title;
-        /* background-color: rgba(255, 188, 188, 0.451); */
+    .character__container .titles,
+    .character__container .lovedata {
+        display: flex;
+        flex-direction: row;
     }
+
+    .character__container__child{
+        flex-grow: 1;
+        margin:5px;
+    }
+    .character__container .titles .name{
+        flex-basis: 70%;
+    }
+
+
 
     .character__container img {
         grid-area: image;
@@ -211,6 +227,7 @@
         border-image: url('@/img/sanrio_border3.jpg') 10% round;
         border-image-width:30px;
         box-shadow: 0px 4px 4px 0px rgba(239, 182, 222, 0.5);
+        min-width: 200px;
 
     }
 
@@ -225,7 +242,6 @@
     }
 
     .character__container h2 {
-        grid-area: appearance;
         background-color: var(--first-pink);
         color: #ffa7d8;
         box-shadow: 0px 2px 2px 0px rgba(253, 36, 188, 0.5) ;
@@ -250,6 +266,11 @@
         /* width:300px; */
         color:#ffa7d8;
         box-shadow: 0px 4px 4px 0px rgba(253, 36, 188, 0.5) ;
+        width:100%;
+    }
+
+    .love{
+        min-width: 300px;
     }
 
     .character__about{
@@ -300,12 +321,13 @@
 
 @media only screen and (max-width: 767px) {
     .CharacterPage{
-        padding-right:20px;
-        padding-left: 20px;
+        padding-right:30px;
+        padding-left: 30px;
     }
     .character-datas{
         box-shadow: 0px 2px 2px 0px rgba(253, 36, 188, 0.5);
         /* grid-template-columns: repeat(2, minmax(100px, 1fr)); */
+        flex-basis: 100%;
     }
     .character__data, .character__about{
         font-size: 12px;
@@ -315,13 +337,17 @@
         border-width: 10px;
         border-image-width: 10px;
     }
-
+/* 
     .character__container {
         grid-template-areas:
             "title title"
             "image appearance"
             "datas datas";
         gap: 5px;
+    } */
+    .character__container .titles,
+    .character__container .lovedata {
+        flex-direction: column;
     }
 
     .product-gallery{
