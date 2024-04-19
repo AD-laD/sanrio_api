@@ -1,7 +1,6 @@
 # Sanrio characters & marketplace using Ebay API
-<img src="https://github.com/AD-laD/sanrio_api/blob/master/src/img/home.png?raw=true" alt="alt text" width="400px">
-<img src="https://github.com/AD-laD/sanrio_api/blob/master/src/gif/products.png?raw=true" alt="alt text" width="400px">
-<img src="https://github.com/AD-laD/sanrio_api/blob/master/src/gif/love.png?raw=true" alt="alt text" width="400px">
+<img src="https://github.com/AD-laD/sanrio_api/blob/master/src/img/home.png?raw=true" alt="alt text" width="100%">
+<img src="https://github.com/AD-laD/sanrio_api/blob/master/src/img/montage.png?raw=true" alt="alt text" width="400px" align-items="center">
 
 <img src="https://github.com/AD-laD/sanrio_api/blob/master/src/gif/3dgifmaker95367.gif?raw=true" alt="alt text" width="400px">
 This template should help get you started developing with Vue 3 in Vite.
