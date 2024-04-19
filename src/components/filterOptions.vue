@@ -1,12 +1,24 @@
-
+<script setup>
+import { saveInputData, getInputData, displayCookieContent } from '../services/tools/cookieUtils';
+</script>
 
 <template>
+    <div class="last-search">
+        
+        <div class ="last-search-txt">last search : {{ lastSearchValue }}</div>
+        <button v-if="lastSearchValue" @click="applySearch">Apply</button>
+        
+        <div>order by : {{ characSortTypeValue }}</div>
+        <div>last specie : {{ characSpeValue }}</div>
+        
+    </div>
+
     <div class="gallery-options select__container">
-        <input type="text" name="search" placeholder="Search..." @input="onSearchInput">
+        <input type="text" name="search" placeholder="Search..." @input="onSearchInput" ref="searchInput">
         
         <div class="label__and__input">
             <label for="charac-sort">Order by : </label>
-            <select class ="select-gallery" :value="characSortType" id="charac-sort" @change="onCharacSortChange">
+            <select class ="select-gallery" :value="characSortType" id="charac-sort" @change="onCharacSortChange" ref="characSort">
                 <option value="AZName">A-Z</option>
                 <option value="ZAName">Z-A</option>
                 <option value="12Date">Date</option>
@@ -17,14 +29,14 @@
         
         <div class="label__and__input">
         <label for="charac-specie">Species : </label>
-        <select class ="select-gallery" :value="characSpecie" id="charac-specie" @change="onCharacSpecieChange">
+        <select class ="select-gallery" :value="characSpecie" id="charac-specie" @change="onCharacSpecieChange" ref="characSpe">
             <option value="all">All</option>
             <option v-for="specie in species" :key="specie" :value="specie">{{ specie }}</option>
         </select>
         </div>
         <button v-if="search || (characSpecie !== 'all')" @click="cleanSearch">Clean search</button>
-
-
+        <div id="cookieContent1"></div>
+        <div id="cookieContent2"></div>
 
     </div>
     <div class="slider__container">
@@ -57,20 +69,62 @@ export default {
         characSpecie: String,
         species: Array,
         characBirthday: String,
+        
     },
+    data(){
+        return {
+        lastSearchValue: '',
+        characSortTypeValue: '',
+        characSpeValue:'',
+        }
+    },
+    updated() {
+        this.displayCookies();
+    },
+
     methods: {
         onSearchInput(event) {
             this.$emit('update:search', event.target.value);//envoie un evenement : mise à jour du champ search quand le champ de recherche est mis à jour
-            console.log('update:search');
+            // console.log('update:search');
+            const inputValue = this.$refs.searchInput.value;
+            saveInputData('searchInput', inputValue);
+        },
+        created() {
+            // this.displayCookies();
+            const searchInputValue = getInputData('searchInput');
+            if (searchInputValue) {
+                this.$refs.searchInput.value = searchInputValue;
+            }
+            const characSortTypeValue = getInputData('characSortType');
+            if (characSortTypeValue) {
+                this.$refs.characSort.value = characSortTypeValue;
+            }
+            if (characSpeValue) {
+                this.$refs.characSort.value = characSpeValue;
+            }
+        },
+        displayCookies() {
+            this.lastSearchValue = getInputData('searchInput') || '';
+            this.characSortTypeValue = getInputData('characSortType') || '';
+            this.characSpeValue = getInputData('characSpe') || '';
+
         },
         cleanSearch() {
             this.$emit('clean-search');
+            this.$refs.searchInput.value = '';
+        },
+        applySearch(){
+            // this.$emit('update:lastSearchValue',lastSearchValue);
+            this.$emit('apply-last-search', this.lastSearchValue);
         },
         onCharacSortChange(event) {
             this.$emit('update:characSortType', event.target.value);
+            saveInputData('characSortType', event.target.value);
         },
         onCharacSpecieChange(event) {
             this.$emit('update:characSpecie', event.target.value);
+            saveInputData('characSpe', event.target.value);
+
         },
         onCharacBirthdayChange(event){
             this.$emit('update:characBirthday', event.target.value);
@@ -121,6 +175,17 @@ label{
     font-size: 16px;
     background-color: var(--second-pink);
     color:var(--first-pink);
+}
+.last-search{
+    color:var(--first-pink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.last-search-txt{
+    background-color: var(--second-pink);
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 button{

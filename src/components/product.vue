@@ -94,6 +94,8 @@
     .url{
         width:100%;
         text-align: center;
+        padding-top:5px;
+        padding-bottom: 5px;
     }
 
     .mon-bouton{

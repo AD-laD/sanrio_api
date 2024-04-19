@@ -29,22 +29,10 @@ import cleanImageURL from '@/services/tools/cleanImageURL.js'
 <style>
     #myComponent {
         display: flex;
-        /* flex-basis:300px;*/
         flex-direction: column; 
         place-items: center;
         align-items: center;
-        /* margin:50px;
-        background-image: url('../img/card_bg.jpg');
-        border: solid 30px transparent;
-        border-image: url('@/img/border_img2.png') 30% round;
-        border-image-width: 40px;
-        background-clip: padding-box; */
     }
-    /*
-    #myComponent:hover{
-        box-shadow: 0px 2px 4px 4px rgba(253, 36, 188, 0.5) ;
-        cursor:pointer;
-    } */
 
     h2 {
         font-size: var(--h2-font-size);

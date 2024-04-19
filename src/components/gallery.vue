@@ -10,9 +10,12 @@
 </script>
 
 <template>
-      <FilterOptions :triPar="triPar" :search="search" :characSortType="characSortType" :characSpecie.sync="characSpecie" @update:characSortType="updateCharacSortType" @update:search="updateSearch" @clean-search="cleanSearch"  @update:characSpecie="updateCharacSpecie" :species="species" :characBirthday="characBirthday" @update:characBirthday="updateCharacBirthday"/>
+      <FilterOptions :triPar="triPar" :search="search" :characSortType="characSortType" :characSpecie.sync="characSpecie" @update:characSortType="updateCharacSortType" @update:search="updateSearch" @apply-last-search="updateLastSearch" @clean-search="cleanSearch"  @update:characSpecie="updateCharacSpecie" :species="species" :characBirthday="characBirthday" @update:characBirthday="updateCharacBirthday"/>
     <div class="component-gallery">
-        <div v-if="!isDataLoaded" class="loading-gif-container">
+        <div v-if="!isDataLoaded" class="parent-container-load">
+            <div  class="loading-gif-container">
+
+        </div>
             Fetching API...
             <img src="../gif/picmix.com_25159962.gif" alt="Loading GIF" height="150px" />
         </div>
@@ -36,6 +39,7 @@
                 triPar: 'nom',
                 isDataLoaded: false, 
                 search: "",
+                lastsearch:"",
                 characSpecie: "all",
                 characSortType: "AZName",
                 species: [],
@@ -112,6 +116,10 @@
             updateSearch(newSearch) {
                 this.search = newSearch;
             },
+            updateLastSearch(lastSearch){
+                this.search = lastSearch;
+
+            },
             cleanSearch() {
                 this.search = '';
                 this.characSpecie='all';
@@ -139,6 +147,11 @@
         border-image-width: 40px;
         background-clip: padding-box;
         margin:30px;
+        max-width: 500px;
+        /* align-items: center;
+        display: flex;
+        place-items: center;
+        place-content: center; */ 
         /* height:400px; */ 
     }
     .mycomponent:hover{
@@ -168,6 +181,12 @@
     box-shadow: 0px 4px 4px 0px rgba(253, 36, 188, 0.5) ;
 }
 
+.parent-container-load{
+    display: flex;
+    align-items: center;
+
+}
+
 .loading-gif-container {
     display: flex;
     justify-content: center;
@@ -175,10 +194,14 @@
     height: 100%;
     flex-direction: column;
     color:var(--second-pink);
+    width:100%;
 }
 
 .loading-gif-container img {
     z-index: 1;
+    max-width: 300px;
+    background-color: #FFF;
+    height:200px;
 }
 
 @media screen and (max-width: 1100px) {

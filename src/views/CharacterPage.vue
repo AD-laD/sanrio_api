@@ -21,7 +21,7 @@
                 </div>
                 <div class="characimg character__container__child">
                     <div v-if="isDataLoaded">
-                 <img class ="img" v-bind:src="cleanImageURL(character.img)" alt="image">
+                 <img class ="imgchar" v-bind:src="cleanImageURL(character.img)" alt="image">
             </div>
                 </div>
                 <!-- <div v-if="LoveData" >
@@ -181,7 +181,6 @@
         }
     }
 </script>
-<!-- piste : changer le picture url uniquement après que les datas soient loaded-->
 <style>
     .CharacterPage{
         padding-right:15%;
@@ -219,15 +218,16 @@
     }
 
 
-
-    .character__container img {
-        grid-area: image;
+    .character__container .imgchar {
         width:100%;
         border: solid 30px transparent;
         border-image: url('@/img/sanrio_border3.jpg') 10% round;
         border-image-width:30px;
         box-shadow: 0px 4px 4px 0px rgba(239, 182, 222, 0.5);
         min-width: 200px;
+        background-image: url('../img/card_bg.jpg');
+        background-size: 20em auto;
+        background-clip: padding-box;
 
     }
 
@@ -319,6 +319,22 @@
         margin-top: 10px;
     }
 
+@media screen and (max-width: 1100px) {
+    /* #product {
+        margin: 20px;
+    } */
+   
+    .product-gallery{
+        grid-template-columns: repeat(3, minmax(100px, 1fr));
+
+    }
+    button .mon-bouton{
+        padding: 0 !important;
+        background-color: #FFF;
+    }
+}
+
+
 @media only screen and (max-width: 767px) {
     .CharacterPage{
         padding-right:30px;
@@ -333,19 +349,32 @@
         font-size: 12px;
         /* margin:0px; */
     }
-    .character__container img {
-        border-width: 10px;
-        border-image-width: 10px;
+    .character__container h1{
+        font-size: 16px;
+        padding: 0.5rem 0.5rem;
     }
-/* 
-    .character__container {
-        grid-template-areas:
-            "title title"
-            "image appearance"
-            "datas datas";
-        gap: 5px;
-    } */
-    .character__container .titles,
+    .character__container h2{
+        font-size: 14px;
+        padding: 0.5rem 0.5rem;
+        margin:none;
+    }
+    .character__container__child{
+        margin:2px;
+    }
+    .character__container .imgchar {
+        min-width: 10px;
+        width:100%;
+        border-color:#FFF var(--second-pink) var(--second-pink) #FFF;
+        border-width:3px;
+        border-style: solid;
+        height:100%;
+        border-image:none;
+        background-size: 15em auto;
+    }
+    .characimg{
+        width:30%;
+    }
+
     .character__container .lovedata {
         flex-direction: column;
     }
