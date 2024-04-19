@@ -21,7 +21,7 @@ function cleanImageURL(url){
         }
     } else {
         // Occurrence de ".png"
-        extensionIndex += 4; // Déplacer l'index à la fin de l'extension
+        extensionIndex += 4; // Déplace l'index à la fin de l'extension
     }
 // Retourner la partie de l'URL jusqu'à l'extension
 return url.substring(0, extensionIndex);

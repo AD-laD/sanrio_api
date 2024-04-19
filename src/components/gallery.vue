@@ -1,8 +1,6 @@
 <script setup>
-  import MyComponent from '@/components/component.vue'
+  import Character from '@/components/component.vue'
   import getSanrioData  from '@/services/api/sanrioAPI.js'
-//   import getSanrioDataLittleApi from '@/services/api/sanrioAPI2.js'
-//   import MyComponent2 from '@/components/component2.vue'
   import FilterOptions from '@/components/filterOptions.vue'
   import cutMonth from '@/services/tools/cutMonth.js'
   import sliderBirthdayValues from '@/services/tools/sliderBirthdayValues.js'
@@ -12,17 +10,17 @@
 <template>
       <FilterOptions :triPar="triPar" :search="search" :characSortType="characSortType" :characSpecie.sync="characSpecie" @update:characSortType="updateCharacSortType" @update:search="updateSearch" @apply-last-search="updateLastSearch" @clean-search="cleanSearch"  @update:characSpecie="updateCharacSpecie" :species="species" :characBirthday="characBirthday" @update:characBirthday="updateCharacBirthday"/>
 
-    <div class="component-gallery__container">
+    <div class="character-gallery__container">
         <div v-if="!isDataLoaded" class="parent-container-load">
             <div  class="loading-gif-container">
                 Fetching API...
                 <img src="../gif/picmix.com_25159962.gif" alt="Loading GIF" height="150px" />
             </div>
         </div>
-        <div class="component-gallery">
+        <div class="character-gallery">
            
-            <router-link class="mycomponent" v-for="character in charactersOrganizedData" :key="character._id" :to="{ name: 'CharacterPage', params: { id: character._id } }">
-                <MyComponent :name="character.name" :appearance="character.appearance" :pictureUrl="character.img" />
+            <router-link class="mycharacter" v-for="character in charactersOrganizedData" :key="character._id" :to="{ name: 'CharacterPage', params: { id: character._id } }">
+                <Character :name="character.name" :appearance="character.appearance" :pictureUrl="character.img" />
             </router-link>
         </div>
     </div>
@@ -32,7 +30,7 @@
     export default {
         name: 'MyGallery',
         components: {
-            MyComponent,
+            Character,
             FilterOptions,
         },
         data() {
@@ -132,7 +130,7 @@
 </script>
 
 <style>
-    .mycomponent {
+    .mycharacter {
         background-image: url('../img/card_bg.jpg');
         border: solid 30px transparent;
         border-image: url('@/img/border_img2.png') 30% round;
@@ -141,7 +139,7 @@
         margin:30px;
         max-width: 500px;
     }
-    .mycomponent:hover{
+    .mycharacter:hover{
         box-shadow: 0px 2px 4px 4px rgba(253, 36, 188, 0.5) ;
         cursor:pointer;
     }
@@ -151,7 +149,7 @@
         object-fit: cover;
     }
 
-    .component-gallery__container{
+    .character-gallery__container{
         margin-left: 150px;
         margin-right:150px;
         min-height: 450px;
@@ -166,7 +164,7 @@
         flex-direction: column;
 
     }
-    .component-gallery{
+    .character-gallery{
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         width:100%;
@@ -198,29 +196,29 @@
     }
 
 @media screen and (max-width: 1100px) {
-    .mycomponent {
+    .mycharacter {
         margin: 20px;
     }
-    .component-gallery__container{
+    .character-gallery__container{
         margin-left: 50px;
         margin-right:50px;
     }
-    .component-gallery{
+    .character-gallery{
        
         grid-template-columns: repeat(2, minmax(200px, 1fr));
     }
 }
 
 @media screen and (max-width: 680px) {
-    .component-gallery__container{
+    .character-gallery__container{
         margin-left: 20px;
         margin-right:20px;
     }
-    .component-gallery{
+    .character-gallery{
         grid-template-columns: repeat(2, minmax(100px, 1fr));
     }
 
-    .mycomponent{
+    .mycharacter{
         margin:6%;
         background-image: url('../img/card_bg.jpg');
         border: solid 10px transparent;

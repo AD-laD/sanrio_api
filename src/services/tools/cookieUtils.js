@@ -14,12 +14,3 @@ export function getInputData(inputName) {
     }
     return null;
 }
-
-export function displayCookieContent(elementId, cookieName) {
-    const cookieContent = getInputData(cookieName);
-    if (cookieContent) {
-        document.getElementById(elementId).textContent = cookieContent;
-    } else {
-        document.getElementById(elementId).textContent = '';
-    }
-}

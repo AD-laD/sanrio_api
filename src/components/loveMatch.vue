@@ -1,16 +1,14 @@
 <script setup>
-    import LoveInput from '@/components/loveinput.vue';
+    import LoveInput from '@/components/loveInput.vue';
 </script>
 
 <template>
     <div class="love_container">
         <div id="loveMatch">
-
             <LoveInput @nameinput="handleNameInput"/>
-            <p class="love-res title">Discover your love score !! </p>
+            <p class="love-res title">Press enter to discover your love score !!  </p>
             <h2 class="love-percent">{{ percentage }} .00%</h2>
             <p class ="love-between">between {{ fname }} & {{ sname }}</p>
-            
         </div>
         <p class="love-res">Love tip :{{ result }}</p>
     </div>

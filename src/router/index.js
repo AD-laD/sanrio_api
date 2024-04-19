@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import CharacterPage from '@/views/CharacterPage.vue';
+import CharacterPage from '@/components/singleCharacter.vue';
 import Router from './router.vue';
 import PageRouter from './pagerouter.vue';
 

@@ -1,15 +1,14 @@
 <script setup>
-import { saveInputData, getInputData, displayCookieContent } from '../services/tools/cookieUtils';
+import { saveInputData, getInputData } from '../services/tools/cookieUtils';
 </script>
 
 <template>
     <div class="last-search">
-        
         <div class ="last-search-txt">last search : {{ lastSearchValue }}</div>
         <button v-if="lastSearchValue" @click="applySearch">Apply</button>
         
-        <div>order by : {{ characSortTypeValue }}</div>
-        <div>last specie : {{ characSpeValue }}</div>
+        <!-- <div>order by : {{ characSortTypeValue }}</div>
+        <div>last specie : {{ characSpeValue }}</div> -->
         
     </div>
 
@@ -84,12 +83,10 @@ export default {
     methods: {
         onSearchInput(event) {
             this.$emit('update:search', event.target.value);//envoie un evenement : mise à jour du champ search quand le champ de recherche est mis à jour
-            // console.log('update:search');
             const inputValue = this.$refs.searchInput.value;
             saveInputData('searchInput', inputValue);
         },
         created() {
-            // this.displayCookies();
             const searchInputValue = getInputData('searchInput');
             if (searchInputValue) {
                 this.$refs.searchInput.value = searchInputValue;
@@ -144,7 +141,6 @@ export default {
     padding-bottom: 10px;
 }
 .slider__container{
-    /* max-width: 500px; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -181,8 +177,10 @@ label{
 }
 .last-search-txt{
     background-color: var(--second-pink);
-    margin-left: 10px;
-    margin-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 button{
@@ -305,10 +303,8 @@ button:hover{
 
 datalist {
   display: flex;
-  /* flex-direction: column; */
   flex-direction: row;
   justify-content: space-around;
-  /* writing-mode: vertical-lr; */
   writing-mode: horizontal-tb;
   width: 100%;
   margin-right: 30px; 

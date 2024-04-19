@@ -1,6 +1,5 @@
 <script setup>
-//  import { ref } from 'vue';
-  import CharacterPage from '@/views/CharacterPage.vue'
+  import CharacterPage from '@/components/singleCharacter.vue'
   import MyHeader from '@/components/header.vue'
   import Footer from '@/components/footer.vue'
 </script>

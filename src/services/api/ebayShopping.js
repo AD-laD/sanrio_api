@@ -1,5 +1,4 @@
-// export const characterDifficultNameToFind = ["Biscuit", "Cookie", "Kiki", "Lala", "Ganta"];
-const getGoogleProducts = async function(characterName) {
+const getEbayProducts = async function(characterName) {
     characterName = characterName + '-sanrio';
     const url = `https://ebay-search-result.p.rapidapi.com/search/${characterName}`;
     const options = {
@@ -23,7 +22,5 @@ const getGoogleProducts = async function(characterName) {
     }
 }
 
-export default getGoogleProducts;
+export default getEbayProducts;
 
-//idées : love calculator avec le personnage : on rentre son nom et on a le pourcentage
-//utiliser google image

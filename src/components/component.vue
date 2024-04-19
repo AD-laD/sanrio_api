@@ -15,7 +15,7 @@ import cleanImageURL from '@/services/tools/cleanImageURL.js'
 
 <script>
     export default {
-        name: 'MyComponent',
+        name: 'Character',
         props: {
         name: {type: String, required: true},
         appearance: String,

@@ -1,3 +1,4 @@
+//une autre API Sanrio mais qui nécessite de demander la permission sur un site externe : j'ai donc changé d'API
 const getSanrioDataLittleApi = async function() {
     try {
         // const response = await fetch('https://cors-anywhere.herokuapp.com/https://github.com/carolstran/sanrio-api/blob/main/characters.json');
@@ -12,6 +13,7 @@ const getSanrioDataLittleApi = async function() {
         console.error(error);
     }
 };
+
 
 export default getSanrioDataLittleApi;
 

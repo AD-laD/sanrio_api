@@ -31,53 +31,45 @@
 </script>
 
 <style>
-footer{
-    background-color: var(--first-pink);
-    color:var(--second-pink);
-    margin: 0;
-    padding:0;
+    footer{
+        background-color: var(--first-pink);
+        color:var(--second-pink);
+        margin: 0;
+        padding:0;
+        width:100%;
+        display: flex;
+        overflow: hidden;
+
+    } 
+    .footer__container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .gif__container{
+        width: 100vw;                    
+    }
+
+
+    .gif__moving{
+        display: inline-block;               
+    padding-right: 80em;                  
+    padding-left: 100%;                   
+    white-space: nowrap;                 
+    animation: defilement-rtl 15s infinite linear;
     width:100%;
-    display: flex;
-    overflow: hidden;
+    }
+    .footer__gif{
+        width:100px;
+    }
 
-} 
-.footer__container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.gif__container{
-    width: 100vw;                    
-}
-/* 
-.footer__gif{
-    height: 100px;
-    margin: auto;
-} */
-
-.gif__moving{
-    display: inline-block;               
-  padding-right: 80em;                  
-  padding-left: 100%;                   
-  white-space: nowrap;                 
-  animation: defilement-rtl 15s infinite linear;
-  width:100%;
-}
-.footer__gif{
-    /* width: 7%;
-    height:auto;
-    margin: 1.5%; */
-    width:100px;
-
-}
-
-@keyframes defilement-rtl {
-  0% {
-    transform: translate3d(0,0,0);      /* position initiale à droite */
-  }
-  100% {
-    transform: translate3d(-100%,0,0);  /* position finale à gauche */
-  }
-}
+    @keyframes defilement-rtl {
+    0% {
+        transform: translate3d(0,0,0);     
+    }
+    100% {
+        transform: translate3d(-100%,0,0);  
+    }
+    }
 </style>
