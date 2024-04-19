@@ -1,6 +1,3 @@
-<script setup>
-// import cleanImageURL from '@/services/tools/cleanImageURL.js'
-</script>
 
 <template>
     <div id="product">
@@ -17,7 +14,6 @@
            
             
         </div>
-        <!-- <p>{{ data }}</p> -->
     </div>
 </template>
 
@@ -29,7 +25,6 @@
             price: String,
             url: String,
             image: {type: String, default:"https://s.com/default.png"},
-            // data:{ type: Object, required: true },
         },
        methods: {
         }
@@ -39,7 +34,6 @@
 <style>
     #product {
         display: flex;
-        /* flex-basis:300px;*/
         flex-direction: column; 
         place-items: center;
         align-items: center;
@@ -47,14 +41,7 @@
         border-image: url('@/img/border_text.jpg') 20% round;
         border-image-width:30px;
         background-color: var(--first-pink);
-        /* width:300px; */
         color:#ffa7d8;
-        /* margin:50px;
-        background-image: url('../img/card_bg.jpg');
-        border: solid 30px transparent;
-        border-image: url('@/img/border_img2.png') 30% round;
-        border-image-width: 40px;
-        background-clip: padding-box; */
     }
     
     #product:hover{
@@ -75,7 +62,6 @@
         border-image: url('@/img/border.jpg') 5% round;
         border-image-width:10px;
         background-color: var(--second-pink);
-        /* width:300px; */
         color:var(--first-pink);
         box-shadow: 0px 4px 4px 0px rgba(253, 36, 188, 0.5) ;
         width:100%;

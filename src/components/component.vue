@@ -42,7 +42,6 @@ import cleanImageURL from '@/services/tools/cleanImageURL.js'
     }
     p{
         font-size : var( --normal-font-size);
-        /* font-size: 11px; */
     }
 
     .card__text{
@@ -56,25 +55,16 @@ import cleanImageURL from '@/services/tools/cleanImageURL.js'
         display: flex;
         align-items: center;
         justify-content: center;
-        /* padding:0; */
-        /* margin:0; */
         max-width: 400px;
         margin-left:20px;
-
         margin-right: 20px;
         width:100%;
-        box-sizing:content-box; /* La bordure est incluse dans la taille totale de la div */
+        box-sizing:content-box; 
     }
 
     .card__p{
         margin-right: 20px;
         margin-left:20px;
-        /* margin:20px; */
-        /* max-height: min-content;
-
-        word-break: break-all; */
     }
-    
-    
 
 </style>

@@ -22,7 +22,6 @@ import { saveInputData, getInputData, displayCookieContent } from '../services/t
                 <option value="AZName">A-Z</option>
                 <option value="ZAName">Z-A</option>
                 <option value="12Date">Date</option>
-                <!-- <option value="12Birthday">Birthday</option> -->
             </select>
         </div>
        
@@ -34,7 +33,7 @@ import { saveInputData, getInputData, displayCookieContent } from '../services/t
             <option v-for="specie in species" :key="specie" :value="specie">{{ specie }}</option>
         </select>
         </div>
-        <button v-if="search || (characSpecie !== 'all')" @click="cleanSearch">Clean search</button>
+        <button v-if="search || (characSpecie !== 'all')|| (characBirthday !== '0')" @click="cleanSearch">Clean search</button>
         <div id="cookieContent1"></div>
         <div id="cookieContent2"></div>
 
@@ -114,7 +113,6 @@ export default {
             this.$refs.searchInput.value = '';
         },
         applySearch(){
-            // this.$emit('update:lastSearchValue',lastSearchValue);
             this.$emit('apply-last-search', this.lastSearchValue);
         },
         onCharacSortChange(event) {
@@ -129,7 +127,6 @@ export default {
         onCharacBirthdayChange(event){
             this.$emit('update:characBirthday', event.target.value);
             console.log(event.target.value);
-            // console.log(this.characBirthday);
         }
     },
 };

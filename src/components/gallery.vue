@@ -11,17 +11,20 @@
 
 <template>
       <FilterOptions :triPar="triPar" :search="search" :characSortType="characSortType" :characSpecie.sync="characSpecie" @update:characSortType="updateCharacSortType" @update:search="updateSearch" @apply-last-search="updateLastSearch" @clean-search="cleanSearch"  @update:characSpecie="updateCharacSpecie" :species="species" :characBirthday="characBirthday" @update:characBirthday="updateCharacBirthday"/>
-    <div class="component-gallery">
+
+    <div class="component-gallery__container">
         <div v-if="!isDataLoaded" class="parent-container-load">
             <div  class="loading-gif-container">
-
+                Fetching API...
+                <img src="../gif/picmix.com_25159962.gif" alt="Loading GIF" height="150px" />
+            </div>
         </div>
-            Fetching API...
-            <img src="../gif/picmix.com_25159962.gif" alt="Loading GIF" height="150px" />
-        </div>
+        <div class="component-gallery">
+           
             <router-link class="mycomponent" v-for="character in charactersOrganizedData" :key="character._id" :to="{ name: 'CharacterPage', params: { id: character._id } }">
                 <MyComponent :name="character.name" :appearance="character.appearance" :pictureUrl="character.img" />
             </router-link>
+        </div>
     </div>
 </template>
 
@@ -48,7 +51,6 @@
         },
         mounted() {
             this.fetchSanrioData();
-            // this.fetchSanrioLittleData();
         },
         computed: {
             charactersOrganizedData: function() {
@@ -103,13 +105,7 @@
                     console.error(error);
                 }
             },
-            // async fetchSanrioLittleData(){
-            //     try{
-            //         this.newCharacters = await getSanrioDataLittleApi();
-            //     }catch(error){
-            //         console.error(error);
-            //     }
-            // },
+
             updateCharacSortType(newSortType) {
                 this.characSortType = newSortType;
             },
@@ -123,6 +119,7 @@
             cleanSearch() {
                 this.search = '';
                 this.characSpecie='all';
+                this.characBirthday='0';
             },
             updateCharacSpecie(newSpecie) {
                 this.characSpecie = newSpecie;
@@ -136,11 +133,6 @@
 
 <style>
     .mycomponent {
-        /* display: flex;
-        flex-basis:300px;
-        flex-direction: column;
-        place-items: center;
-        margin:50px; */
         background-image: url('../img/card_bg.jpg');
         border: solid 30px transparent;
         border-image: url('@/img/border_img2.png') 30% round;
@@ -148,11 +140,6 @@
         background-clip: padding-box;
         margin:30px;
         max-width: 500px;
-        /* align-items: center;
-        display: flex;
-        place-items: center;
-        place-content: center; */ 
-        /* height:400px; */ 
     }
     .mycomponent:hover{
         box-shadow: 0px 2px 4px 4px rgba(253, 36, 188, 0.5) ;
@@ -163,66 +150,76 @@
         height:200px;
         object-fit: cover;
     }
-.component-gallery{
-    margin-left: 150px;
-    margin-right:150px;
-    min-height: 450px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    /* grid-template-columns: repeat(3, minmax(350px, 1fr)); */
 
+    .component-gallery__container{
+        margin-left: 150px;
+        margin-right:150px;
+        min-height: 450px;
+        background-image: url('../img/sanrio-background2.jpg');
+        background-size: 10em auto;
+        background-repeat: 10;
+        border: solid 30px transparent;
+        border-image: url('@/img/border.jpg') 5% round;
+        border-image-width:20px;
+        box-shadow: 0px 4px 4px 0px rgba(253, 36, 188, 0.5) ;
+        display: flex;
+        flex-direction: column;
 
-    background-image: url('../img/sanrio-background2.jpg');
-    background-size: 10em auto;
-    background-repeat: 10;
-    border: solid 30px transparent;
-    border-image: url('@/img/border.jpg') 5% round;
-    border-image-width:20px;
-    box-shadow: 0px 4px 4px 0px rgba(253, 36, 188, 0.5) ;
-}
+    }
+    .component-gallery{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        width:100%;
 
-.parent-container-load{
-    display: flex;
-    align-items: center;
+    }
 
-}
+    .parent-container-load{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width:100%;
+    }
 
-.loading-gif-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    flex-direction: column;
-    color:var(--second-pink);
-    width:100%;
-}
+    .loading-gif-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        flex-direction: column;
+        color:var(--second-pink);
+        width:100%;
+    }
 
-.loading-gif-container img {
-    z-index: 1;
-    max-width: 300px;
-    background-color: #FFF;
-    height:200px;
-}
+    .loading-gif-container img {
+        z-index: 1;
+        max-width: 300px;
+        background-color: #FFF;
+        height:200px;
+    }
 
 @media screen and (max-width: 1100px) {
     .mycomponent {
         margin: 20px;
     }
-    .component-gallery{
+    .component-gallery__container{
         margin-left: 50px;
         margin-right:50px;
+    }
+    .component-gallery{
+       
         grid-template-columns: repeat(2, minmax(200px, 1fr));
     }
 }
 
 @media screen and (max-width: 680px) {
-    .component-gallery{
-        /* margin-left: 0;
-        margin-right:0; */
-        grid-template-columns: repeat(2, minmax(100px, 1fr));
+    .component-gallery__container{
         margin-left: 20px;
         margin-right:20px;
     }
+    .component-gallery{
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+    }
+
     .mycomponent{
         margin:6%;
         background-image: url('../img/card_bg.jpg');
@@ -233,12 +230,7 @@
         background-size: 15em auto;
         height: 190px;
     }
-    /* h2{
-        line-height: normal;
-        font-size: 16px;
-        max-width: 100px;
-        text-align: center;
-    } */
+
     p{
         font-size: 14px;
     }
@@ -255,7 +247,6 @@
         position: relative;
         width: 100%; 
         right:0;
-
     }
 
     .image__container h3 {
@@ -265,7 +256,6 @@
         top: 0;
         left: 0;
         right:-50px;
-        /* background-color: rgba(255, 255, 255, 0.8);  */
         color:azure;
         padding: 10px; 
         margin: 0; 

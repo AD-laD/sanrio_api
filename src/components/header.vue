@@ -1,14 +1,12 @@
 <template>
     <header>
         <div class = "header">
-            <!-- <h1>Sanrio</h1> -->
-            <!-- <img class = "header__img" src="@/img/Sanrio-Logo.jpg" alt="logo"> -->
             <img class = "logo__img" src="@/gif/3dgifmaker95367.gif" alt="logo">
             <img class = "logo__sparkles__1" src="@/gif/picmix.com_1397143.gif" alt="logo">
             <img class = "logo__sparkles__2" src="@/gif/picmix.com_1397143.gif" alt="logo">
             <img class = "logo__sparkles__3" src="@/gif/picmix.com_1397143.gif" alt="logo">
             <img class = "logo__sparkles__4" src="@/gif/picmix.com_1397143.gif" alt="logo">
-            <!-- <img class="header__img" src="@/img/main-sanrio-characters.jpg"> -->
+            <a href="/.."></a>
         </div>
     </header>
     
@@ -28,18 +26,21 @@ header{
     align-items: center;
     text-align: center;
     height:200px;
-    /* box-shadow: 0px 4px 4px 0px rgba(253, 36, 188, 0.5) ; */
 }
 .header{
     margin-left: auto;
     margin-right: auto;
     padding:2rem;
 }
-/* .header__img{
-    /* width:200px; 
- position:absolute;
-    left:400px; 
-} */
+.header a {
+    display:block;
+    position: absolute;
+    top:0;
+    left:0;
+    height:200px;
+    width:100%;
+   
+}
 
 .logo__img{
    max-height:700px;
@@ -71,14 +72,14 @@ header{
 
 
 @media only screen and (max-width: 767px) {
-    header{
+    header, .header a {
         height:100px;
     }
     .logo__img{
-        max-width: 100%; /* La largeur maximale de l'image est fixée à 100% de la largeur de son conteneur */
-        display: block; /* Assurez-vous que l'image est affichée en tant que bloc pour appliquer les marges automatiques */
-        margin-left: auto; /* Marge automatique à gauche */
-        margin-right: auto; /* Marge automatique à droite */
+        max-width: 100%; 
+        display: block;
+        margin-left: auto;
+        margin-right: auto; 
     }
 
     .logo__sparkles__1,

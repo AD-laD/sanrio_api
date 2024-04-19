@@ -24,9 +24,6 @@
                  <img class ="imgchar" v-bind:src="cleanImageURL(character.img)" alt="image">
             </div>
                 </div>
-                <!-- <div v-if="LoveData" >
-                    <loveMatch :percentage="loveResult.percentage" :fname="loveResult.fname" :sname="loveResult.sname" :result="loveResult.result" @nameinput="getLoveData"/>
-                </div> -->
             </div>
            
 
@@ -49,24 +46,18 @@
         </div>
 
         <div v-if="isShoppingDataLoaded" class="product-container">
-            
-            <!-- <Product v-for="product in products" :key="product.id" :title="product.title" :price="product.price" :url="product.url" :image="product.image" /> -->
             <div class="product-gallery">
                 <Product v-for="(product, index) in visibleProducts" :key="product.id" :title="product.title" :price="product.price" :url="product.url" :image="product.image" />
             </div>
-         
-
-            <!-- Afficher le bouton "Charger plus" si tous les produits ne sont pas encore affichés -->
             <div class="button_div">
                 <button v-if="shouldShowLoadMoreButton" class="loadmorebutton" @click="loadMoreProducts">Charger plus</button>
             </div>
-            
         </div>
        
     </div>
     <div>
     <a href="/..">
-        <div class="button_div">
+        <div class="button_div gallery__button">
             <button > Go back to gallery</button>
         </div>
     </a>
@@ -318,12 +309,12 @@
         justify-content: center;
         margin-top: 10px;
     }
+    .gallery__button{
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
 
 @media screen and (max-width: 1100px) {
-    /* #product {
-        margin: 20px;
-    } */
-   
     .product-gallery{
         grid-template-columns: repeat(3, minmax(100px, 1fr));
 

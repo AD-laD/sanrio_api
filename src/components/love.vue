@@ -5,14 +5,11 @@
 <template>
     <div class="love_container">
         <div id="loveMatch">
-            <!-- <input type="text" name="nameinput" placeholder="Name..." @keypress.enter="onEnter"> -->
+
             <LoveInput @nameinput="handleNameInput"/>
             <p class="love-res title">Discover your love score !! </p>
             <h2 class="love-percent">{{ percentage }} .00%</h2>
             <p class ="love-between">between {{ fname }} & {{ sname }}</p>
-            <!-- <div class="card__text"> -->
-                
-            <!-- </div> -->
             
         </div>
         <p class="love-res">Love tip :{{ result }}</p>
@@ -44,8 +41,7 @@
 
 <style>
 #loveMatch{
-    /* background-image: url(../img/love_bg.png);
-    background-size: contain; */
+
     display: flex;
     align-items: center;
     justify-content: center;
