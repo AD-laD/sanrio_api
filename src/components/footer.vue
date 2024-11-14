@@ -2,7 +2,6 @@
     <footer>
         <div class="footer__container">
             @Sanrio API project 2024
-            made by wapsad
         <div class="gif__container">
             <div class="gif__moving">
                 <img class ="footer__gif" src="../gif/little-twin-stars-kiki-and-lala.gif">
